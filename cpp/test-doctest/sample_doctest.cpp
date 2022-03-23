@@ -229,6 +229,43 @@ TEST_CASE ("FizzBuzz") {
 
 }
 
+TEST_CASE ("closestToZero") {
+    SUBCASE("All positive") {
+        vector<int> input = {1, 2, 3};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == 1);
+    }
+    SUBCASE("All positive, including zero") {
+        vector<int> input = {0, 1, 2};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == 0);
+    }
+    SUBCASE("Duplicated entry") {
+        vector<int> input = {1, 1, 1};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == 1);
+    }
+    SUBCASE("All negative") {
+        vector<int> input = {-1, -2, -3};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == -1);
+    }
+    SUBCASE("All negative, with zero") {
+        vector<int> input = {-1, -2, -3, 0};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == 0);
+    }
+    SUBCASE("mix of positive and negative") {
+        vector<int> input = {-1, 2, -3};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == -1);
+    }
+    SUBCASE("min/max of int: max wins") {
+        vector<int> input = {numeric_limits<int>::min(), numeric_limits<int>::max()};
+        int64_t result = closestToZero(&input);
+        REQUIRE(result == numeric_limits<int>::max());
+    }
+}
 
 TEST_CASE ("Closest to Zero") {
     SUBCASE("0, 1, 2") {
@@ -255,6 +292,7 @@ TEST_CASE ("Closest to Zero") {
         vector<int> v1 = {3, 2, -1};
         CHECK(closestToZero(&v1) == -1);
     }
+    
 }
 
 
